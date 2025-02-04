@@ -1,20 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import './index.css';
-import {Home} from './pages/Home/Home';
 import reportWebVitals from './reportWebVitals';
-import {House} from "./pages/House/House";
-import {Navbar} from "./components/navBar/NavBar";
+import Blog from "./templates/blog/Blog";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
       <Router>
-          <Navbar />
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/house" element={<House />} />
+            <Route path="/" element={<Blog />} />
           </Routes>
       </Router>
   </React.StrictMode>
