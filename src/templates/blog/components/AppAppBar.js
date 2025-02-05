@@ -73,11 +73,10 @@ export default function AppAppBar() {
                             alignItems: 'center',
                         }}
                     >
-                        <Button color="primary" variant="text" size="small">
+                        <Button color="primary" variant="text" size="small" component={Link} to="/inscription">
                             S'inscrire
                         </Button>
-                        <Button color="primary" variant="contained" size="small" fullWidth component={Link}
-                                to="/connection">
+                        <Button color="primary" variant="contained" size="small" fullWidth component={Link} to="/connection">
                             Connexion
                         </Button>
                         <ColorModeIconDropdown />
@@ -113,13 +112,12 @@ export default function AppAppBar() {
                                 <MenuItem>Blog</MenuItem>
                                 <Divider sx={{ my: 3 }} />
                                 <MenuItem>
-                                    <Button color="primary" variant="contained" fullWidth>
+                                    <Button color="primary" variant="contained" fullWidth component={Link} to="/inscription">
                                         S'inscrire
                                     </Button>
                                 </MenuItem>
                                 <MenuItem>
-                                    <Button color="primary" variant="outlined" fullWidth component={Link}
-                                            to="/connection">
+                                    <Button color="primary" variant="outlined" fullWidth component={Link} to="/connection">
                                         Connexion
                                     </Button>
                                 </MenuItem>

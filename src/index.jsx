@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import reportWebVitals from './reportWebVitals';
 import Blog from "./templates/blog/Blog";
 import SignIn from "./templates/sign-in/SignIn";
+import SignUp from "./templates/sign-up/SignUp";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -13,6 +14,7 @@ root.render(
           <Routes>
             <Route path="/" element={<Blog />} />
             <Route path="/connection" element={<SignIn />} />
+            <Route path="/inscription" element={<SignUp />} />
           </Routes>
       </Router>
   </React.StrictMode>
