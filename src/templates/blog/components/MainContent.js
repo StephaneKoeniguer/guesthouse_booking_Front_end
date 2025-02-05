@@ -159,7 +159,7 @@ export function Search() {
             <OutlinedInput
                 size="small"
                 id="search"
-                placeholder="Search…"
+                placeholder="Rechercher…"
                 sx={{ flexGrow: 1 }}
                 startAdornment={
                     <InputAdornment position="start" sx={{ color: 'text.primary' }}>
