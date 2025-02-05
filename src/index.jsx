@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import reportWebVitals from './reportWebVitals';
 import Blog from "./templates/blog/Blog";
+import SignIn from "./templates/sign-in/SignIn";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -11,6 +12,7 @@ root.render(
       <Router>
           <Routes>
             <Route path="/" element={<Blog />} />
+            <Route path="/connection" element={<SignIn />} />
           </Routes>
       </Router>
   </React.StrictMode>

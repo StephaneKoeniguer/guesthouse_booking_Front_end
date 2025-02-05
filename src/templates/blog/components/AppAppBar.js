@@ -13,6 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ColorModeIconDropdown from '../../../shared-theme/ColorModeIconDropdown';
 import Sitemark from './SitemarkIcon';
+import { Link} from 'react-router-dom'
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     display: 'flex',
@@ -53,7 +54,8 @@ export default function AppAppBar() {
                     <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
                         <Sitemark />
                         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                            <Button variant="text" color="info" size="small">
+                            <Button variant="text" color="info" size="small" component={Link}
+                                    to="/">
                                 Home
                             </Button>
                             <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
@@ -74,7 +76,8 @@ export default function AppAppBar() {
                         <Button color="primary" variant="text" size="small">
                             S'inscrire
                         </Button>
-                        <Button color="primary" variant="contained" size="small">
+                        <Button color="primary" variant="contained" size="small" fullWidth component={Link}
+                                to="/connection">
                             Connexion
                         </Button>
                         <ColorModeIconDropdown />
@@ -105,7 +108,7 @@ export default function AppAppBar() {
                                         <CloseRoundedIcon />
                                     </IconButton>
                                 </Box>
-                                <MenuItem>Home</MenuItem>
+                                <MenuItem component={Link} to="/">Home</MenuItem>
                                 <MenuItem>FAQ</MenuItem>
                                 <MenuItem>Blog</MenuItem>
                                 <Divider sx={{ my: 3 }} />
@@ -115,7 +118,8 @@ export default function AppAppBar() {
                                     </Button>
                                 </MenuItem>
                                 <MenuItem>
-                                    <Button color="primary" variant="outlined" fullWidth>
+                                    <Button color="primary" variant="outlined" fullWidth component={Link}
+                                            to="/connection">
                                         Connexion
                                     </Button>
                                 </MenuItem>
