@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RoomsAPI from '../../api/rooms';
-import ErrorDisplay from '../../components/errorDisplay/ErrorDisplay';
-import Loading from "../../components/loading/Loading";
-import Title from '../../components/title/Title';
+import ErrorDisplay from '../../templates/blog/components/ErrorDisplay';
+import Loading from "../../templates/blog/components/Loading";
 import RoomList from '../../components/roomList/RoomList';
 
 export function Home() {
@@ -36,7 +35,6 @@ export function Home() {
 
     return (
         <div>
-            <Title>Liste des Chambres d'hôtes</Title>
             <RoomList rooms={rooms} />
         </div>
     );
