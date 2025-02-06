@@ -2,9 +2,29 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import {Search} from "./SearchBar";
 import * as React from "react";
+import {useEffect, useState} from "react";
+import CategoryAPI from "../../../api/category";
 
 
 export function Filter({handleClick}) {
+
+    const [categories, setCategories] = useState([]);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        // Utiliser la fonction fetchCategories pour récupérer les données
+        const getCategories = async () => {
+            try {
+                const categoryData = await CategoryAPI.fetchCategories();  // Appel de la méthode statique
+                setCategories(categoryData);
+            } catch (err) {
+                setError(err.message);
+            }
+        };
+
+        getCategories();
+    }, []);
+
     return(
         <Box
             sx={{
@@ -25,43 +45,26 @@ export function Filter({handleClick}) {
                     overflow: 'auto',
                 }}
             >
-                <Chip onClick={handleClick} size="medium" label="All categories" />
                 <Chip
                     onClick={handleClick}
                     size="medium"
-                    label="Company"
-                    sx={{
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                    }}
+                    label="Toutes les catégories"
                 />
-                <Chip
-                    onClick={handleClick}
-                    size="medium"
-                    label="Product"
-                    sx={{
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                    }}
-                />
-                <Chip
-                    onClick={handleClick}
-                    size="medium"
-                    label="Design"
-                    sx={{
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                    }}
-                />
-                <Chip
-                    onClick={handleClick}
-                    size="medium"
-                    label="Engineering"
-                    sx={{
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                    }}
-                />
+
+                {categories.map((category) => (
+                    <Chip
+                        key={category.id}
+                        onClick={handleClick}
+                        size="medium"
+                        label={category.name}
+                        sx={{
+                            backgroundColor: 'transparent',
+                            border: 'none',
+                        }}
+                    />
+
+                ))}
+
             </Box>
             <Box
                 sx={{

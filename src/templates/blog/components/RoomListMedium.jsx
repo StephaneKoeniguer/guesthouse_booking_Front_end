@@ -5,25 +5,62 @@ import Typography from "@mui/material/Typography";
 import {Author} from "./Author";
 import Grid from "@mui/material/Grid2";
 import * as React from "react";
+import {useEffect, useState} from "react";
+import RoomsAPI from "../../../api/rooms";
+import Loading from "./Loading";
+import ErrorDisplay from "./ErrorDisplay";
 
 
 export function RoomListMedium({handleFocus, focusedCardIndex}) {
+
+    const [rooms, setRooms] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        // Utiliser la fonction fetchRooms pour récupérer les données
+        const getRooms = async () => {
+            try {
+                const roomsData = await RoomsAPI.fetchRooms();  // Appel de la méthode statique
+                setRooms(roomsData);
+                setLoading(false);
+            } catch (err) {
+                setError(err.message);
+                setLoading(false);
+            }
+        };
+
+        getRooms();
+
+    }, []);
+
+    console.log(rooms);
+
+    if (loading) {
+        return <Loading />;
+    }
+
+    if (error) {
+        return <ErrorDisplay error={error} />;
+    }
+
+
     return(
         <>
-        {cardData.slice(2, 4).map((card, index) => (
-            <Grid size={{ xs: 12, md: 4 }} key={index}> {/* Chaque carte occupe 1/3 sur écrans moyens */}
+        {rooms.map((room) => (
+            <Grid size={{ xs: 12, md: 4 }} key={room.id}> {/* Chaque carte occupe 1/3 sur écrans moyens */}
                 <SyledCard
                     variant="outlined"
                     onFocus={() => handleFocus}
                     onBlur={handleFocus}
                     tabIndex={0}
-                    className={focusedCardIndex === index ? 'Mui-focused' : ''}
+                    className={focusedCardIndex === room.id ? 'Mui-focused' : ''}
                     sx={{ height: '100%' }}
                 >
                     <CardMedia
                         component="img"
                         alt="green iguana"
-                        image={card.img}
+                        image={room.roomImages[0].imageUrl}
                         sx={{
                             height: { sm: 'auto', md: '50%' },
                             aspectRatio: { sm: '16 / 9', md: '' },
@@ -31,16 +68,16 @@ export function RoomListMedium({handleFocus, focusedCardIndex}) {
                     />
                     <SyledCardContent>
                         <Typography gutterBottom variant="caption" component="div">
-                            {card.tag}
+                            {room.category.name}
                         </Typography>
                         <Typography gutterBottom variant="h6" component="div">
-                            {card.title}
+                            {room.name}
                         </Typography>
                         <StyledTypography variant="body2" color="text.secondary" gutterBottom>
-                            {card.description}
+                            {room.description}
                         </StyledTypography>
                     </SyledCardContent>
-                    <Author authors={card.authors} />
+                    {/*<Author authors={room.capacity} />*/}
                 </SyledCard>
             </Grid>
         ))}
