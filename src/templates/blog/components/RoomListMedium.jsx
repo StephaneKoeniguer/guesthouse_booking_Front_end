@@ -68,7 +68,7 @@ export function RoomListMedium({handleFocus, focusedCardIndex}) {
                     />
                     <SyledCardContent>
                         <Typography gutterBottom variant="caption" component="div">
-                            {room.category.name}
+                            {/*{room.category.name}*/}
                         </Typography>
                         <Typography gutterBottom variant="h6" component="div">
                             {room.name}
