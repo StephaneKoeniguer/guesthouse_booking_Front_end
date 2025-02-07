@@ -8,28 +8,21 @@ const ErrorDisplay = ({ error }) => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '100vh',  // Centrer sur l'écran verticalement
-                position: 'fixed',
-                left: 0,
-                top: 0,
-                width: '100%',
+                width: '60%',  // Réduire la largeur du conteneur
+                padding: 2,  // Un peu de padding autour du message d'erreur
+                boxSizing: 'border-box',
+                backgroundColor: '#f44336',  // Couleur de fond rouge plus intense
+                border: '1px solid #e57373',  // Bordure pour faire ressortir l'erreur
+                borderRadius: '5px',  // Bords arrondis
+                marginBottom: 5,  // Espacement en bas
+                marginTop: 5,  // Espacement en bas
+                marginLeft: 'auto',  // Centrage horizontal
+                marginRight: 'auto', // Centrage horizontal
             }}
         >
-            <Box
-                sx={{
-                    backgroundColor: '#d32f2f',
-                    color: 'white',
-                    padding: '20px',
-                    borderRadius: '5px',
-                    boxShadow: 3,  // Ombre pour rendre l'erreur plus visible
-                    maxWidth: '80%',
-                    textAlign: 'center',
-                }}
-            >
-                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                    Une erreur est survenue lors du chargement, veuillez réessayer plus tard
-                </Typography>
-            </Box>
+            <Typography variant="body1" sx={{ color: 'white', fontWeight: 'bold' }}>
+                Une erreur est survenue lors du chargement, veuillez réessayer plus tard
+            </Typography>
         </Box>
     );
 };

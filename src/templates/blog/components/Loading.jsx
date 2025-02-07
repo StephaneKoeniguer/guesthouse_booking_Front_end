@@ -8,11 +8,10 @@ const Loading = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '100vh',
-                position: 'fixed',
-                left: 0,
-                top: 0,
-                width: '100%',
+                marginBottom: 10,  // Espacement en bas
+                marginTop: 10,  // Espacement en bas
+                marginLeft: 'auto',  // Centrage horizontal
+                marginRight: 'auto', // Centrage horizontal
             }}
         >
             <CircularProgress size={80} />
