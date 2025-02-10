@@ -8,18 +8,19 @@ import Latest from './components/Latest';
 import Footer from './components/Footer';
 
 export default function Blog(props) {
+
     return (
         <AppTheme {...props}>
             <CssBaseline enableColorScheme />
             <AppAppBar />
-            <Container
-                maxWidth="xl"
-                component="main"
-                sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
-            >
-                <MainContent />
-                <Latest />
-            </Container>
+                <Container
+                    maxWidth="xl"
+                    component="main"
+                    sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
+                >
+                    <MainContent />
+                    <Latest />
+                </Container>
             <Footer />
         </AppTheme>
     );

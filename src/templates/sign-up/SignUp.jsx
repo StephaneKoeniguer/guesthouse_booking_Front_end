@@ -1,83 +1,44 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import MuiCard from '@mui/material/Card';
-import { styled } from '@mui/material/styles';
 import AppTheme from '../../shared-theme/AppTheme';
-import ColorModeSelect from '../../shared-theme/ColorModeSelect';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from './components/CustomIcons';
 import AppAppBar from "../blog/components/AppAppBar";
+import {FormCard, SignUpContainer} from "../../style/CardStyle";
+import UserAPI from "../../api/user";
 
-const Card = styled(MuiCard)(({ theme }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    alignSelf: 'center',
-    width: '100%',
-    padding: theme.spacing(4),
-    gap: theme.spacing(2),
-    margin: 'auto',
-    boxShadow:
-        'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
-    [theme.breakpoints.up('sm')]: {
-        width: '450px',
-    },
-    ...theme.applyStyles('dark', {
-        boxShadow:
-            'hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px',
-    }),
-}));
-
-const SignUpContainer = styled(Stack)(({ theme }) => ({
-    height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
-    minHeight: '100%',
-    padding: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-        padding: theme.spacing(4),
-    },
-    '&::before': {
-        content: '""',
-        display: 'block',
-        position: 'absolute',
-        zIndex: -1,
-        inset: 0,
-        backgroundImage:
-            'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))',
-        backgroundRepeat: 'no-repeat',
-        ...theme.applyStyles('dark', {
-            backgroundImage:
-                'radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))',
-        }),
-    },
-}));
 
 export default function SignUp(props) {
     const [emailError, setEmailError] = React.useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
     const [passwordError, setPasswordError] = React.useState(false);
     const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
-    const [nameError, setNameError] = React.useState(false);
-    const [nameErrorMessage, setNameErrorMessage] = React.useState('');
+    const [firstNameError, setFirstNameError] = React.useState(false);
+    const [firstNameErrorMessage, setFirstNameErrorMessage] = React.useState('');
+    const [lastNameError, setLastNameError] = React.useState(false);
+    const [lastNameErrorMessage, setLastNameErrorMessage] = React.useState('');
+    const navigate = useNavigate();
 
     const validateInputs = () => {
         const email = document.getElementById('email');
         const password = document.getElementById('password');
-        const name = document.getElementById('name');
+        const firstName = document.getElementById('first_name');
+        const lastName = document.getElementById('last_name');
+
 
         let isValid = true;
 
         if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
             setEmailError(true);
-            setEmailErrorMessage('Please enter a valid email address.');
+            setEmailErrorMessage('Saisir une adresse email valide');
             isValid = false;
         } else {
             setEmailError(false);
@@ -86,37 +47,74 @@ export default function SignUp(props) {
 
         if (!password.value || password.value.length < 6) {
             setPasswordError(true);
-            setPasswordErrorMessage('Password must be at least 6 characters long.');
+            setPasswordErrorMessage('Le mot de passe doit fait plus de 6 caractères.');
             isValid = false;
         } else {
             setPasswordError(false);
             setPasswordErrorMessage('');
         }
 
-        if (!name.value || name.value.length < 1) {
-            setNameError(true);
-            setNameErrorMessage('Name is required.');
+        if (!firstName.value || firstName.value.length < 1) {
+            setFirstNameError(true);
+            setFirstNameErrorMessage('Le nom est obligatoire');
             isValid = false;
         } else {
-            setNameError(false);
-            setNameErrorMessage('');
+            setFirstNameError(false);
+            setFirstNameErrorMessage('');
+        }
+
+        if (!lastName.value || lastName.value.length < 1) {
+            setLastNameError(true);
+            setLastNameErrorMessage('Le prénom est obligatoire');
+            isValid = false;
+        } else {
+            setLastNameError(false);
+            setLastNameErrorMessage('');
         }
 
         return isValid;
     };
 
+    const registerUser = async (formData) => {
+        try {
+            // Conversion des données en JSON
+            const data = {
+                firstName: formData.get('first_name'),
+                lastName: formData.get('last_name'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+            };
+
+            // Appel à l'API
+            await UserAPI.RegisterUser(data);
+            navigate('/')
+        } catch (error) {
+            console.error(
+                error.message
+            );
+        }
+    };
+
     const handleSubmit = (event) => {
-        if (nameError || emailError || passwordError) {
-            event.preventDefault();
+        event.preventDefault(); // Empêche le rechargement de la page
+
+        // Validation des champs
+        if (firstNameError || emailError || passwordError) {
             return;
         }
-        const data = new FormData(event.currentTarget);
-        console.log({
-            name: data.get('name'),
-            lastName: data.get('lastName'),
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+
+        const formData = new FormData(event.currentTarget);
+
+        // Vérification des données extraites
+        /*console.log({
+            firstName: formData.get('first_name'),
+            lastName: formData.get('last_name'),
+            email: formData.get('email'),
+            password: formData.get('password'),
+        });*/
+
+        // Appel à l'enregistrement utilisateur
+        registerUser(formData);
     };
 
     return (
@@ -124,7 +122,7 @@ export default function SignUp(props) {
             <AppAppBar />
             <CssBaseline enableColorScheme />
             <SignUpContainer direction="column" justifyContent="space-between">
-                <Card variant="outlined">
+                <FormCard variant="outlined">
                     <SitemarkIcon />
                     <Typography
                         component="h1"
@@ -139,17 +137,31 @@ export default function SignUp(props) {
                         sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
                     >
                         <FormControl>
-                            <FormLabel htmlFor="name">Nom, prénom</FormLabel>
+                            <FormLabel htmlFor="first_name">Nom</FormLabel>
                             <TextField
-                                autoComplete="name"
-                                name="name"
+                                autoComplete="first_name"
+                                name="first_name"
                                 required
                                 fullWidth
-                                id="name"
-                                placeholder="Jon Snow"
-                                error={nameError}
-                                helperText={nameErrorMessage}
-                                color={nameError ? 'error' : 'primary'}
+                                id="first_name"
+                                placeholder="Snow"
+                                error={firstNameError}
+                                helperText={firstNameErrorMessage}
+                                color={firstNameError ? 'error' : 'primary'}
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel htmlFor="last_name">Prénom</FormLabel>
+                            <TextField
+                                autoComplete="last_name"
+                                name="last_name"
+                                required
+                                fullWidth
+                                id="last_name"
+                                placeholder="Jon"
+                                error={lastNameError}
+                                helperText={lastNameErrorMessage}
+                                color={lastNameError ? 'error' : 'primary'}
                             />
                         </FormControl>
                         <FormControl>
@@ -183,10 +195,6 @@ export default function SignUp(props) {
                                 color={passwordError ? 'error' : 'primary'}
                             />
                         </FormControl>
-                        {/*<FormControlLabel
-                            control={<Checkbox value="allowExtraEmails" color="primary" />}
-                            label="I want to receive updates via email."
-                        />*/}
                         <Button
                             type="submit"
                             fullWidth
@@ -203,7 +211,7 @@ export default function SignUp(props) {
                         <Button
                             fullWidth
                             variant="outlined"
-                            onClick={() => alert('Sign up with Google')}
+                            /*onClick={''}*/
                             startIcon={<GoogleIcon />}
                         >
                             S'inscrire avec Google
@@ -211,7 +219,7 @@ export default function SignUp(props) {
                         <Button
                             fullWidth
                             variant="outlined"
-                            onClick={() => alert('Sign up with Facebook')}
+                            /*onClick={''}*/
                             startIcon={<FacebookIcon />}
                         >
                             S'inscrire avec Facebook
@@ -227,7 +235,7 @@ export default function SignUp(props) {
                             </Link>
                         </Typography>
                     </Box>
-                </Card>
+                </FormCard>
             </SignUpContainer>
         </AppTheme>
     );
