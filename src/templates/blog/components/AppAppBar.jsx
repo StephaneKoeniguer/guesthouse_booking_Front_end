@@ -17,7 +17,7 @@ import { useAuth } from '../../../context/AuthProvider';
 
 export default function AppAppBar() {
     const [open, setOpen] = React.useState(false);
-    const { isAuthenticated, logout } = useAuth();
+    const { isAuthenticated, logout, user } = useAuth();
 
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
@@ -60,6 +60,18 @@ export default function AppAppBar() {
                     >
                         {isAuthenticated ? (
                             <>
+                                <Button variant="text" color="info" size="small" component={Link}
+                                        to="/">
+                                    Mes annonces
+                                </Button>
+                                <Button variant="text" color="info" size="small" component={Link}
+                                        to="/">
+                                    Commentaires & évaluations
+                                </Button>
+                                <Button variant="text" color="info" size="small" component={Link}
+                                        to="/">
+                                    Mon profil
+                                </Button>
                                 <Button
                                     color="primary"
                                     variant="contained"
@@ -113,6 +125,25 @@ export default function AppAppBar() {
                                 <Divider sx={{ my: 3 }} />
 
                                 {isAuthenticated ? (
+                                    <>
+                                    <MenuItem>
+                                        <Button variant="text" color="info" fullWidth component={Link}
+                                                to="/">
+                                            Mes annonces
+                                        </Button>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Button variant="text" color="info" fullWidth component={Link}
+                                                to="/">
+                                            Commentaires & évaluations
+                                        </Button>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Button variant="text" color="info" fullWidth component={Link}
+                                                to="/">
+                                            Mon profil
+                                        </Button>
+                                    </MenuItem>
                                     <MenuItem>
                                         <Button
                                             color="primary"
@@ -123,6 +154,7 @@ export default function AppAppBar() {
                                             Déconnexion
                                         </Button>
                                     </MenuItem>
+                                    </>
                                 ) : (
                                     <>
                                         <MenuItem>
