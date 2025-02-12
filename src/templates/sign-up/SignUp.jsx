@@ -87,7 +87,8 @@ export default function SignUp(props) {
 
             // Appel à l'API
             await UserAPI.RegisterUser(data);
-            navigate('/')
+            // Naviguer avec un état pour indiquer le succès
+            navigate('/', { state: { showPopup: true } });
         } catch (error) {
             console.error(
                 error.message
