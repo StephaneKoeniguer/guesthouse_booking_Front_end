@@ -3,9 +3,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import {Title} from "./Title";
 import {Filter} from "./Filter";
-import {RoomListLarge} from "./RoomListLarge";
 import {RoomListMedium} from "./RoomListMedium";
-import {RoomListSmall} from "./RoomListSmall";
 import Pagination from "@mui/material/Pagination";
 
 
@@ -30,20 +28,10 @@ export default function MainContent() {
             <Title title="Nos maisons d'hôtes" description="Découvrez un cadre chaleureux et authentique où chaque séjour devient une expérience inoubliable." />
             <Filter handleClick={handleClick} />
             <Grid container spacing={2} columns={12}>
-               {/* <RoomListLarge
-                    handleFocus={handleFocus}
-                    handleBlur={handleBlur}
-                    focusedCardIndex={focusedCardIndex}
-                />*/}
                 <RoomListMedium
                     handleFocus={handleFocus}
                     focusedCardIndex={focusedCardIndex}
                 />
-                {/*<RoomListSmall
-                    handleFocus={handleFocus}
-                    handleBlur={handleBlur}
-                    focusedCardIndex={focusedCardIndex}
-                />*/}
             </Grid>
             <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', pt: 4 }}>
                 <Pagination hidePrevButton hideNextButton count={10} boundaryCount={10} />

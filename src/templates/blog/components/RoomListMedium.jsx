@@ -58,7 +58,7 @@ export function RoomListMedium({handleFocus, focusedCardIndex}) {
         {loading && <Loading />}  {/* Affiche le spinner loading */}
 
         {rooms.map((room, index) => (
-            <Grid size={{ xs: 12, md: 4 }} key={room.id}> {/* Chaque carte occupe 1/3 sur écrans moyens */}
+            <Grid size={{ xs: 12, md: 2 }} key={room.id}> {/* Chaque carte occupe 1/3 sur écrans moyens */}
                 <SyledCard
                     variant="outlined"
                     onFocus={() => handleFocus}

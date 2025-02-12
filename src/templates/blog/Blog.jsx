@@ -41,7 +41,7 @@ export default function Blog(props) {
                 children="Vous pouvez à présent déposer une annonce "
             />
                 <Container
-                    maxWidth="xl"
+                    maxWidth="l"
                     component="main"
                     sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
                 >
