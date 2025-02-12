@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { alpha, styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
@@ -14,25 +12,12 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ColorModeIconDropdown from '../../../shared-theme/ColorModeIconDropdown';
 import Sitemark from './SitemarkIcon';
 import { Link} from 'react-router-dom'
-
-const StyledToolbar = styled(Toolbar)(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexShrink: 0,
-    borderRadius: `calc(${theme.shape.borderRadius}px + 8px)`,
-    backdropFilter: 'blur(24px)',
-    border: '1px solid',
-    borderColor: (theme.vars || theme).palette.divider,
-    backgroundColor: theme.vars
-        ? `rgba(${theme.vars.palette.background.defaultChannel} / 0.4)`
-        : alpha(theme.palette.background.default, 0.4),
-    boxShadow: (theme.vars || theme).shadows[1],
-    padding: '8px 12px',
-}));
+import {StyledToolbar} from "../../../style/Navigation";
+import { useAuth } from '../../../context/AuthProvider';
 
 export default function AppAppBar() {
     const [open, setOpen] = React.useState(false);
+    const { isAuthenticated, logout } = useAuth();
 
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
@@ -59,10 +44,10 @@ export default function AppAppBar() {
                                 Home
                             </Button>
                             <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
-                                FAQ
+                                Blog
                             </Button>
                             <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
-                                Blog
+                                Faq
                             </Button>
                         </Box>
                     </Box>
@@ -73,12 +58,27 @@ export default function AppAppBar() {
                             alignItems: 'center',
                         }}
                     >
-                        <Button color="primary" variant="text" size="small" component={Link} to="/inscription">
-                            S'inscrire
-                        </Button>
-                        <Button color="primary" variant="contained" size="small" fullWidth component={Link} to="/connection">
-                            Connexion
-                        </Button>
+                        {isAuthenticated ? (
+                            <>
+                                <Button
+                                    color="primary"
+                                    variant="contained"
+                                    size="small"
+                                    onClick={logout}
+                                >
+                                    Déconnexion
+                                </Button>
+                            </>
+                        ) : (
+                            <>
+                                <Button color="primary" variant="text" size="small" component={Link} to="/inscription">
+                                    S'inscrire
+                                </Button>
+                                <Button color="primary" variant="contained" size="small" fullWidth component={Link} to="/connection">
+                                    Connexion
+                                </Button>
+                            </>
+                        )}
                         <ColorModeIconDropdown />
                     </Box>
                     <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1 }}>
@@ -108,19 +108,35 @@ export default function AppAppBar() {
                                     </IconButton>
                                 </Box>
                                 <MenuItem component={Link} to="/">Home</MenuItem>
-                                <MenuItem>FAQ</MenuItem>
                                 <MenuItem>Blog</MenuItem>
+                                <MenuItem>Faq</MenuItem>
                                 <Divider sx={{ my: 3 }} />
-                                <MenuItem>
-                                    <Button color="primary" variant="contained" fullWidth component={Link} to="/inscription">
-                                        S'inscrire
-                                    </Button>
-                                </MenuItem>
-                                <MenuItem>
-                                    <Button color="primary" variant="outlined" fullWidth component={Link} to="/connection">
-                                        Connexion
-                                    </Button>
-                                </MenuItem>
+
+                                {isAuthenticated ? (
+                                    <MenuItem>
+                                        <Button
+                                            color="primary"
+                                            variant="contained"
+                                            fullWidth
+                                            onClick={logout}
+                                        >
+                                            Déconnexion
+                                        </Button>
+                                    </MenuItem>
+                                ) : (
+                                    <>
+                                        <MenuItem>
+                                            <Button color="primary" variant="contained" fullWidth component={Link} to="/inscription">
+                                                S'inscrire
+                                            </Button>
+                                        </MenuItem>
+                                        <MenuItem>
+                                            <Button color="primary" variant="outlined" fullWidth component={Link} to="/connection">
+                                                Connexion
+                                            </Button>
+                                        </MenuItem>
+                                    </>
+                                )}
                             </Box>
                         </Drawer>
                     </Box>

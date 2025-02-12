@@ -97,23 +97,12 @@ export default function SignUp(props) {
     };
 
     const handleSubmit = (event) => {
-        event.preventDefault(); // Empêche le rechargement de la page
-
+        event.preventDefault();
         // Validation des champs
         if (firstNameError || emailError || passwordError) {
             return;
         }
-
         const formData = new FormData(event.currentTarget);
-
-        // Vérification des données extraites
-        /*console.log({
-            firstName: formData.get('first_name'),
-            lastName: formData.get('last_name'),
-            email: formData.get('email'),
-            password: formData.get('password'),
-        });*/
-
         // Appel à l'enregistrement utilisateur
         registerUser(formData);
     };

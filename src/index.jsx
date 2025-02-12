@@ -5,18 +5,21 @@ import reportWebVitals from './reportWebVitals';
 import Blog from "./templates/blog/Blog";
 import SignIn from "./templates/sign-in/SignIn";
 import SignUp from "./templates/sign-up/SignUp";
+import {AuthProvider} from "./context/AuthProvider";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-      <Router>
-          <Routes>
-            <Route path="/" element={<Blog />} />
-            <Route path="/connection" element={<SignIn />} />
-            <Route path="/inscription" element={<SignUp />} />
-          </Routes>
-      </Router>
+      <AuthProvider>
+          <Router>
+              <Routes>
+                <Route path="/" element={<Blog />} />
+                <Route path="/connection" element={<SignIn />} />
+                <Route path="/inscription" element={<SignUp />} />
+              </Routes>
+          </Router>
+      </AuthProvider>
   </React.StrictMode>
 );
 

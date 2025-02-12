@@ -22,13 +22,12 @@ function ForgotPassword({ open, handleClose }) {
                 sx: { backgroundImage: 'none' },
             }}
         >
-            <DialogTitle>Reset password</DialogTitle>
+            <DialogTitle>Réinitialiser votre mot de passe</DialogTitle>
             <DialogContent
                 sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
             >
                 <DialogContentText>
-                    Enter your account&apos;s email address, and we&apos;ll send you a link to
-                    reset your password.
+                    Veuillez saisir votre adresse email. Un lien pour réinitialiser votre mot de passe vous sera envoyé.
                 </DialogContentText>
                 <OutlinedInput
                     autoFocus
@@ -43,9 +42,9 @@ function ForgotPassword({ open, handleClose }) {
                 />
             </DialogContent>
             <DialogActions sx={{ pb: 3, px: 3 }}>
-                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={handleClose}>Annuler</Button>
                 <Button variant="contained" type="submit">
-                    Continue
+                    Valider
                 </Button>
             </DialogActions>
         </Dialog>

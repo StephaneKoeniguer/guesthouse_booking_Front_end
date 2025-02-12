@@ -51,8 +51,6 @@ export function RoomListMedium({handleFocus, focusedCardIndex}) {
         setAverageRating(newAverageRatings);
     }, [rooms]);
 
-    console.log(rooms);
-
 
     return(
         <>
