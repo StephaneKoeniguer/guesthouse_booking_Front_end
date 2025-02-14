@@ -6,6 +6,7 @@ Ce projet représente la partie frontend de l'application Guest House. Actuellem
 
 - Affichage des chambres avec des informations détaillées sous forme de cartes.
 - Bouton "Réserver" présent sur chaque carte (fonctionnalité à venir).
+- Gestion des utilisateurs (connexion, inscription).
 - Architecture moderne avec React et Material-UI.
 
 ## 🔧 Technologies Utilisées
@@ -18,7 +19,6 @@ Ce projet représente la partie frontend de l'application Guest House. Actuellem
 ## 📋 Fonctionnalités à Venir
 
 	•	Ajout d’une fonctionnalité de réservation de chambres.
-	•	Gestion des utilisateurs (connexion, inscription).
 	•	Vue calendrier pour vérifier les disponibilités des chambres.
 	•	Interface de gestion pour l’administration (ajout, modification, suppression de chambres).
 
