@@ -26,57 +26,61 @@ export function Filter({handleClick}) {
     }, []);
 
     return(
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: { xs: 'column-reverse', md: 'row' },
-                width: '100%',
-                justifyContent: 'space-between',
-                alignItems: { xs: 'start', md: 'center' },
-                gap: 4,
-                overflow: 'auto',
-            }}
-        >
+        categories ? (
             <Box
                 sx={{
-                    display: 'inline-flex',
-                    flexDirection: 'row',
-                    gap: 3,
+                    display: 'flex',
+                    flexDirection: { xs: 'column-reverse', md: 'row' },
+                    width: '100%',
+                    justifyContent: 'space-between',
+                    alignItems: { xs: 'start', md: 'center' },
+                    gap: 4,
                     overflow: 'auto',
                 }}
             >
-                <Chip
-                    onClick={handleClick}
-                    size="medium"
-                    label="Toutes les catégories"
-                />
-
-                {categories.map((category) => (
+                <Box
+                    sx={{
+                        display: 'inline-flex',
+                        flexDirection: 'row',
+                        gap: 3,
+                        overflow: 'auto',
+                    }}
+                >
                     <Chip
-                        key={category.id}
                         onClick={handleClick}
                         size="medium"
-                        label={category.name}
-                        sx={{
-                            backgroundColor: 'transparent',
-                            border: 'none',
-                        }}
+                        label="Toutes les catégories"
                     />
 
-                ))}
+                    {categories.map((category) => (
+                        <Chip
+                            key={category.id}
+                            onClick={handleClick}
+                            size="medium"
+                            label={category.name}
+                            sx={{
+                                backgroundColor: 'transparent',
+                                border: 'none',
+                            }}
+                        />
 
+                    ))}
+
+                </Box>
+                <Box
+                    sx={{
+                        display: { xs: 'none', sm: 'flex' },
+                        flexDirection: 'row',
+                        gap: 1,
+                        width: { xs: '100%', md: 'fit-content' },
+                        overflow: 'auto',
+                    }}
+                >
+                    <Search />
+                </Box>
             </Box>
-            <Box
-                sx={{
-                    display: { xs: 'none', sm: 'flex' },
-                    flexDirection: 'row',
-                    gap: 1,
-                    width: { xs: '100%', md: 'fit-content' },
-                    overflow: 'auto',
-                }}
-            >
-                <Search />
-            </Box>
-        </Box>
+        ) : null
     );
+
+
 }

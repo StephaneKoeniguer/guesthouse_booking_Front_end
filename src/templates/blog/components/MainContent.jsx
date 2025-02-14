@@ -4,7 +4,6 @@ import Grid from '@mui/material/Grid2';
 import {Title} from "./Title";
 import {Filter} from "./Filter";
 import {RoomListMedium} from "./RoomListMedium";
-import Pagination from "@mui/material/Pagination";
 
 
 export default function MainContent() {
@@ -33,9 +32,6 @@ export default function MainContent() {
                     focusedCardIndex={focusedCardIndex}
                 />
             </Grid>
-            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', pt: 4 }}>
-                <Pagination hidePrevButton hideNextButton count={10} boundaryCount={10} />
-            </Box>
         </Box>
     );
 }
