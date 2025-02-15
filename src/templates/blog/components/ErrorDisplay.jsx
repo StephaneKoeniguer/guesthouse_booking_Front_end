@@ -8,7 +8,7 @@ const ErrorDisplay = ({ error }) => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                width: '60%',  // Réduire la largeur du conteneur
+                width: '40%',  // Réduire la largeur du conteneur
                 padding: 2,  // Un peu de padding autour du message d'erreur
                 boxSizing: 'border-box',
                 backgroundColor: '#f44336',  // Couleur de fond rouge plus intense

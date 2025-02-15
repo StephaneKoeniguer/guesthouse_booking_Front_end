@@ -21,13 +21,20 @@ export function RoomListMedium({handleFocus, focusedCardIndex}) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [averageRating, setAverageRating] = useState(0);
+    const [page, setPage] = useState(1);
+    const [limit] = useState(12);
+    const [totalPages, setTotalPages] = useState(1);
 
+    /**
+     * Gestion des rooms avec pagination
+     */
     useEffect(() => {
         // Utiliser la fonction fetchRooms pour récupérer les données
         const getRooms = async () => {
             try {
-                const roomsData = await RoomsAPI.fetchRooms();  // Appel de la méthode statique
-                setRooms(roomsData);
+                const data = await RoomsAPI.fetchRooms(page, limit);
+                setRooms(data.rooms);
+                setTotalPages(data.totalPages);
                 setLoading(false);
             } catch (err) {
                 setError(err.message);
@@ -37,8 +44,20 @@ export function RoomListMedium({handleFocus, focusedCardIndex}) {
 
         getRooms();
 
-    }, []);
+    }, [page, limit]);
 
+    /**
+     * Gestion pagination
+     * @param event
+     * @param value
+     */
+    const handlePageChange = (event, value) => {
+        setPage(value);
+    };
+
+    /**
+     * Gestion des notes
+     */
     useEffect(() => {
         // Vérifie si `rooms` contient des chambres et si elles ont des évaluations
         const newAverageRatings = rooms.map(room => {
@@ -113,6 +132,16 @@ export function RoomListMedium({handleFocus, focusedCardIndex}) {
                 </SyledCard>
             </Grid>
         ))}
+            <Box
+                 sx={{ display: 'flex', justifyContent: 'center', width: '100%', pt: 4 }}>
+                <Pagination
+                    hidePrevButton={page === 1}
+                    hideNextButton={page === totalPages}
+                    count={totalPages}
+                    page={page}
+                    onChange={handlePageChange}
+                />
+            </Box>
     </>
     );
 }
