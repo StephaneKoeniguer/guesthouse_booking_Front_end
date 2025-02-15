@@ -25,11 +25,14 @@ export function RoomListMedium({handleFocus, focusedCardIndex}) {
     const [limit] = useState(12);
     const [totalPages, setTotalPages] = useState(1);
 
+    /**
+     * Gestion des rooms avec pagination
+     */
     useEffect(() => {
         // Utiliser la fonction fetchRooms pour récupérer les données
         const getRooms = async () => {
             try {
-                const data = await RoomsAPI.fetchRooms(page, limit);  // Appel de la méthode statique
+                const data = await RoomsAPI.fetchRooms(page, limit);
                 setRooms(data.rooms);
                 setTotalPages(data.totalPages);
                 setLoading(false);
@@ -43,10 +46,18 @@ export function RoomListMedium({handleFocus, focusedCardIndex}) {
 
     }, [page, limit]);
 
+    /**
+     * Gestion pagination
+     * @param event
+     * @param value
+     */
     const handlePageChange = (event, value) => {
         setPage(value);
     };
 
+    /**
+     * Gestion des notes
+     */
     useEffect(() => {
         // Vérifie si `rooms` contient des chambres et si elles ont des évaluations
         const newAverageRatings = rooms.map(room => {
@@ -121,11 +132,15 @@ export function RoomListMedium({handleFocus, focusedCardIndex}) {
                 </SyledCard>
             </Grid>
         ))}
-            <Box count={totalPages}
-                 page={page}
-                 onChange={handlePageChange}
+            <Box
                  sx={{ display: 'flex', justifyContent: 'center', width: '100%', pt: 4 }}>
-                <Pagination hidePrevButton hideNextButton count={10} boundaryCount={10} />
+                <Pagination
+                    hidePrevButton={page === 1}
+                    hideNextButton={page === totalPages}
+                    count={totalPages}
+                    page={page}
+                    onChange={handlePageChange}
+                />
             </Box>
     </>
     );
