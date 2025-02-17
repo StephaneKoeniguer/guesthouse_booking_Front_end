@@ -15,4 +15,20 @@ export default class RoomsAPI {
     }
 
 
+    static async fetchRoomsPerCategory(category, page = 1, limit = 12) {
+        try {
+            const response = await axios.get(`${API_URL}/category`, {
+                params: {
+                    category: category,
+                    page: page,
+                    limit: limit,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+
+
 }

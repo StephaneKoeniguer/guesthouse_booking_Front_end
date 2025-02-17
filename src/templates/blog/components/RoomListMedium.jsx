@@ -24,42 +24,54 @@ export function RoomListMedium({selectedCategory}) {
     const [page, setPage] = useState(1);
     const [limit] = useState(12);
     const [totalPages, setTotalPages] = useState(1);
-    const [filteredRooms, setFilteredRooms] = useState([]);
+
+
+    const getRooms = async () => {
+        try {
+            // Utiliser la fonction fetchRooms pour récupérer les données
+            const data = await RoomsAPI.fetchRooms(page, limit);
+            setRooms(data.rooms);
+            setTotalPages(data.totalPages);
+            setLoading(false);
+        } catch (err) {
+            setError(err.message);
+            setLoading(false);
+        }
+    };
 
     /**
      * Gestion des rooms avec pagination
      */
     useEffect(() => {
-        // Utiliser la fonction fetchRooms pour récupérer les données
-        const getRooms = async () => {
-            try {
-                const data = await RoomsAPI.fetchRooms(page, limit);
-                setRooms(data.rooms);
-                setTotalPages(data.totalPages);
-                setLoading(false);
-            } catch (err) {
-                setError(err.message);
-                setLoading(false);
-            }
-        };
-
         getRooms();
 
     }, [page, limit]);
 
     // Appliquer le filtrage basé sur la catégorie sélectionnée
     useEffect(() => {
-        let roomsToDisplay = rooms;
+        const roomsToDisplay = async () => {
+            setLoading(true); // Démarre le chargement au début
+            let page = 1;
 
-        if (selectedCategory) {
-            roomsToDisplay = rooms.filter(room => room.category.id === selectedCategory);
-            // Recalculer les pages après filtrage
-            setTotalPages(Math.ceil(roomsToDisplay.length / limit));
-        }
+            if (selectedCategory) {
+                // Si une catégorie est sélectionnée
+                try {
+                    const data = await RoomsAPI.fetchRoomsPerCategory(selectedCategory, page, limit);
+                    setRooms(data.rooms);
+                    setTotalPages(data.totalPages);
+                    setLoading(false);
+                } catch (err) {
+                    setError(err.message);
+                    setLoading(false);
+                }
+            } else {
+                getRooms();
+            }
+        };
 
-        setFilteredRooms(roomsToDisplay);
+        roomsToDisplay();
 
-    }, [selectedCategory, rooms]);
+    }, [selectedCategory, page, limit]);
 
 
     /**
@@ -86,75 +98,104 @@ export function RoomListMedium({selectedCategory}) {
         setAverageRating(newAverageRatings);
     }, [rooms]);
 
-
-    return(
+    return (
         <>
-        {error && <ErrorDisplay error={error} />}  {/* Affiche l'erreur si elle existe */}
-        {loading && <Loading />}  {/* Affiche le spinner loading */}
+            {error && <ErrorDisplay error={error}/>} {/* Affiche l'erreur si elle existe */}
 
-        {filteredRooms.map((room, index) => (
-            <Grid size={{ xs: 12, md: 2 }} key={room.id}> {/* Chaque carte occupe 1/3 sur écrans moyens */}
-                <SyledCard
-                    variant="outlined"
-                    tabIndex={0}
-                    sx={{ height: '100%' }}
-                >
-                    <CardMedia
-                        component="img"
-                        alt="green iguana"
-                        image={room.roomImages[0].imageUrl}
+            {loading && !error && <Loading/>} {/* Affiche le spinner de chargement uniquement si pas d'erreur */}
+
+            {!loading && !error && (
+                <>
+                    {rooms.map((room, index) => (
+                        <Grid size={{xs: 12, md: 2}} key={room.id}>
+                            {/* Chaque carte occupe 1/3 sur écrans moyens */}
+                            <SyledCard
+                                variant="outlined"
+                                tabIndex={0}
+                                sx={{height: '100%'}}
+                            >
+                                <CardMedia
+                                    component="img"
+                                    alt={room.name}
+                                    image={room.roomImages[0].imageUrl}
+                                    sx={{
+                                        height: {sm: 'auto', md: '50%'},
+                                        aspectRatio: {sm: '16 / 9', md: ''},
+                                    }}
+                                />
+                                <SyledCardContent>
+                                    <Typography gutterBottom variant="caption" component="div">
+                                        <Chip label={room.category.name}/>
+                                    </Typography>
+                                    <Divider/>
+                                    <Typography gutterBottom variant="h6" component="div">
+                                        {room.name}
+                                    </Typography>
+                                    <StyledTypography
+                                        variant="body2"
+                                        color="text.secondary"
+                                        gutterBottom
+                                    >
+                                        {room.description}
+                                    </StyledTypography>
+                                    <StyledTypography
+                                        variant="body2"
+                                        color="text.secondary"
+                                        gutterBottom
+                                    >
+                                        <span style={{fontWeight: 'bold'}}>Capacité d'accueil :</span>{' '}
+                                        {room.capacity > 1
+                                            ? `${room.capacity} personnes`
+                                            : `${room.capacity} personne`}
+                                        <br/>
+                                        <span style={{fontWeight: 'bold'}}>Tarif :</span> {room.pricePerNight} €
+                                    </StyledTypography>
+                                    <Divider/>
+                                    <StyledTypography
+                                        variant="body2"
+                                        color="text.secondary"
+                                        gutterBottom
+                                        sx={{
+                                            display: 'flex',
+                                            justifyContent: 'flex-start',
+                                            alignItems: 'center',
+                                            marginTop: 2,
+                                        }}
+                                    >
+                                        <Button variant="contained" size="medium">
+                                            En savoir plus
+                                        </Button>
+                                        <Rating
+                                            key={room.id}
+                                            name="read-only"
+                                            value={averageRating[index] || 0}
+                                            readOnly
+                                            sx={{marginLeft: 'auto'}}
+                                        />
+                                    </StyledTypography>
+                                </SyledCardContent>
+                            </SyledCard>
+                        </Grid>
+                    ))}
+
+                    <Box
                         sx={{
-                            height: { sm: 'auto', md: '50%' },
-                            aspectRatio: { sm: '16 / 9', md: '' },
+                            display: 'flex',
+                            justifyContent: 'center',
+                            width: '100%',
+                            pt: 4,
                         }}
-                    />
-                    <SyledCardContent>
-                        <Typography gutterBottom variant="caption" component="div">
-                            <Chip label={room.category.name} />
-                        </Typography>
-                        <Divider />
-                        <Typography gutterBottom variant="h6" component="div">
-                            {room.name}
-                        </Typography>
-                        <StyledTypography variant="body2" color="text.secondary" gutterBottom>
-                            {room.description}
-                        </StyledTypography>
-                        <StyledTypography variant="body2" color="text.secondary" gutterBottom>
-                            <span style={{ fontWeight: 'bold' }}>Capacité d'accueil :</span> {room.capacity > 1 ? `${room.capacity} personnes` : `${room.capacity} personne`}
-                            <br />
-                            <span style={{ fontWeight: 'bold' }}>Tarif :</span> {room.pricePerNight} €
-                        </StyledTypography>
-                        <Divider />
-                        <StyledTypography
-                            variant="body2"
-                            color="text.secondary"
-                            gutterBottom
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'flex-start',
-                                alignItems: 'center',
-                                marginTop: 2,
-                            }}>
-                            <Button variant="contained" size="medium">
-                                En savoir plus
-                            </Button>
-                                <Rating key={room.id} name="read-only" value= {averageRating[index] || 0} readOnly sx={{ marginLeft: 'auto' }} />
-                        </StyledTypography>
-                    </SyledCardContent>
-                    {/*<Author authors={room.capacity} />*/}
-                </SyledCard>
-            </Grid>
-        ))}
-            <Box
-                 sx={{ display: 'flex', justifyContent: 'center', width: '100%', pt: 4 }}>
-                <Pagination
-                    hidePrevButton={page === 1}
-                    hideNextButton={page === totalPages}
-                    count={totalPages}
-                    page={page}
-                    onChange={handlePageChange}
-                />
-            </Box>
-    </>
+                    >
+                        <Pagination
+                            hidePrevButton={page === 1}
+                            hideNextButton={page === totalPages}
+                            count={totalPages}
+                            page={page}
+                            onChange={handlePageChange}
+                        />
+                    </Box>
+                </>
+            )}
+        </>
     );
 }
