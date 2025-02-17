@@ -15,7 +15,7 @@ import Pagination from "@mui/material/Pagination";
 import Box from "@mui/material/Box";
 
 
-export function RoomListMedium({handleFocus, focusedCardIndex}) {
+export function RoomListMedium({selectedCategory}) {
 
     const [rooms, setRooms] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -24,6 +24,7 @@ export function RoomListMedium({handleFocus, focusedCardIndex}) {
     const [page, setPage] = useState(1);
     const [limit] = useState(12);
     const [totalPages, setTotalPages] = useState(1);
+    const [filteredRooms, setFilteredRooms] = useState([]);
 
     /**
      * Gestion des rooms avec pagination
@@ -45,6 +46,15 @@ export function RoomListMedium({handleFocus, focusedCardIndex}) {
         getRooms();
 
     }, [page, limit]);
+
+    // Appliquer le filtrage basé sur la catégorie sélectionnée
+    useEffect(() => {
+        if (selectedCategory) {
+            setFilteredRooms(rooms.filter(room => room.category.id === selectedCategory));
+        } else {
+            setFilteredRooms(rooms); // Si aucune catégorie sélectionnée, afficher toutes les rooms
+        }
+    }, [selectedCategory, rooms]);
 
     /**
      * Gestion pagination
@@ -76,14 +86,11 @@ export function RoomListMedium({handleFocus, focusedCardIndex}) {
         {error && <ErrorDisplay error={error} />}  {/* Affiche l'erreur si elle existe */}
         {loading && <Loading />}  {/* Affiche le spinner loading */}
 
-        {rooms.map((room, index) => (
+        {filteredRooms.map((room, index) => (
             <Grid size={{ xs: 12, md: 2 }} key={room.id}> {/* Chaque carte occupe 1/3 sur écrans moyens */}
                 <SyledCard
                     variant="outlined"
-                    onFocus={() => handleFocus}
-                    onBlur={handleFocus}
                     tabIndex={0}
-                    className={focusedCardIndex === room.id ? 'Mui-focused' : ''}
                     sx={{ height: '100%' }}
                 >
                     <CardMedia

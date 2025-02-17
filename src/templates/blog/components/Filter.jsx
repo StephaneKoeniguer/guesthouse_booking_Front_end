@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import CategoryAPI from "../../../api/category";
 
 
-export function Filter({handleClick}) {
+export function Filter({handleClick, activeCategory}) {
 
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(null);
@@ -24,6 +24,9 @@ export function Filter({handleClick}) {
 
         getCategories();
     }, []);
+
+    console.log(activeCategory);
+
 
     return(
         categories ? (
@@ -47,20 +50,24 @@ export function Filter({handleClick}) {
                     }}
                 >
                     <Chip
-                        onClick={handleClick}
+                        onClick={() => handleClick(null)}
                         size="medium"
                         label="Toutes les catégories"
+                        sx={{
+                            backgroundColor: activeCategory === null ? '#e3f2fd' : 'none',
+                            border: activeCategory === null ? '1px solid #1976d2' : 'none',
+                        }}
                     />
 
                     {categories.map((category) => (
                         <Chip
                             key={category.id}
-                            onClick={handleClick}
+                            onClick={() => handleClick(category.id)}
                             size="medium"
                             label={category.name}
                             sx={{
-                                backgroundColor: 'transparent',
-                                border: 'none',
+                                backgroundColor: activeCategory === category.id ? '#e3f2fd' : 'none',
+                                border: activeCategory === category.id ? '1px solid #1976d2' : 'none',
                             }}
                         />
 
