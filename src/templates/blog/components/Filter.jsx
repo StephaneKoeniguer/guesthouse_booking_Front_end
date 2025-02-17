@@ -25,8 +25,6 @@ export function Filter({handleClick, activeCategory}) {
         getCategories();
     }, []);
 
-    console.log(activeCategory);
-
 
     return(
         categories ? (

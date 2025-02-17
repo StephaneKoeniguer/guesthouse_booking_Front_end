@@ -49,12 +49,18 @@ export function RoomListMedium({selectedCategory}) {
 
     // Appliquer le filtrage basé sur la catégorie sélectionnée
     useEffect(() => {
+        let roomsToDisplay = rooms;
+
         if (selectedCategory) {
-            setFilteredRooms(rooms.filter(room => room.category.id === selectedCategory));
-        } else {
-            setFilteredRooms(rooms); // Si aucune catégorie sélectionnée, afficher toutes les rooms
+            roomsToDisplay = rooms.filter(room => room.category.id === selectedCategory);
+            // Recalculer les pages après filtrage
+            setTotalPages(Math.ceil(roomsToDisplay.length / limit));
         }
+
+        setFilteredRooms(roomsToDisplay);
+
     }, [selectedCategory, rooms]);
+
 
     /**
      * Gestion pagination
