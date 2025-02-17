@@ -26,8 +26,13 @@ function Copyright() {
 export default function Footer() {
     return (
         <React.Fragment>
-            <Divider />
+            <Divider
+                sx={{
+                    marginLeft: '20px',
+                    marginRight: '20px',
+                }}/>
             <Container
+                maxWidth="l"
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -60,10 +65,7 @@ export default function Footer() {
                                 gutterBottom
                                 sx={{ fontWeight: 600, mt: 2 }}
                             >
-                                Join the newsletter
-                            </Typography>
-                            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
-                                Subscribe for weekly updates. No spams ever!
+                                S'inscrire à la newsletter
                             </Typography>
                             <InputLabel htmlFor="email-newsletter">Email</InputLabel>
                             <Stack direction="row" spacing={1} useFlexGap>
@@ -74,7 +76,7 @@ export default function Footer() {
                                     variant="outlined"
                                     fullWidth
                                     aria-label="Enter your email address"
-                                    placeholder="Your email address"
+                                    placeholder="Adresse email"
                                     slotProps={{
                                         htmlInput: {
                                             autoComplete: 'off',
@@ -89,7 +91,7 @@ export default function Footer() {
                                     size="small"
                                     sx={{ flexShrink: 0 }}
                                 >
-                                    Subscribe
+                                    S'inscrire
                                 </Button>
                             </Stack>
                         </Box>
@@ -102,7 +104,7 @@ export default function Footer() {
                         }}
                     >
                         <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-                            Product
+                            Menu
                         </Typography>
                         <Link color="text.secondary" variant="body2" href="/">
                             Home
