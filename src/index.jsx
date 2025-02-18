@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import {AuthProvider} from "./context/AuthProvider";
 import reportWebVitals from './reportWebVitals';
 import Blog from "./templates/blog/Blog";
 import SignIn from "./templates/sign-in/SignIn";
 import SignUp from "./templates/sign-up/SignUp";
-import {AuthProvider} from "./context/AuthProvider";
+import RoomDetails from "./templates/blog/components/RoomDetails";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -17,6 +18,7 @@ root.render(
                 <Route path="/" element={<Blog />} />
                 <Route path="/connection" element={<SignIn />} />
                 <Route path="/inscription" element={<SignUp />} />
+                  <Route path="/rooms/:id" element={<RoomDetails />} />
               </Routes>
           </Router>
       </AuthProvider>

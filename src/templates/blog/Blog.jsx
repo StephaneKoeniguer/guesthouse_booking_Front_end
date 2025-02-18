@@ -15,6 +15,9 @@ export default function Blog(props) {
     const navigate = useNavigate();
     const [showPopup, setShowPopup] = useState(location.state?.showPopup ?? false);
 
+    /**
+     * Gestion du popup d'inscription
+     */
     useEffect(() => {
         // Vérifier si l'état indique qu'un popup doit être affiché
         if (location.state?.showPopup) {

@@ -1,18 +1,14 @@
-import {StyledTypography, SyledCard, SyledCardContent} from "../../../style/CardStyle";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid2";
 import * as React from "react";
-import {useEffect, useState} from "react";
 import RoomsAPI from "../../../api/rooms";
+import {Link} from "react-router-dom";
+import {useEffect, useState} from "react";
 import Loading from "./Loading";
 import ErrorDisplay from "./ErrorDisplay";
-import Chip from "@mui/material/Chip";
-import Divider from '@mui/material/Divider';
-import Button from '@mui/material/Button';
-import Rating from '@mui/material/Rating';
 import Pagination from "@mui/material/Pagination";
-import Box from "@mui/material/Box";
+import {StyledTypography, SyledCard, SyledCardContent} from "../../../style/CardStyle";
+import {CardMedia, Typography, Chip, Divider, Button, Rating,Box } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+
 
 
 export function RoomListMedium({selectedCategory}) {
@@ -47,11 +43,13 @@ export function RoomListMedium({selectedCategory}) {
 
     }, [page, limit]);
 
-    // Appliquer le filtrage basé sur la catégorie sélectionnée
+    /**
+     * Gestion des filtres avec pagination
+     */
     useEffect(() => {
         const roomsToDisplay = async () => {
             setLoading(true); // Démarre le chargement au début
-            let page = 1;
+            setPage(1);
 
             if (selectedCategory) {
                 // Si une catégorie est sélectionnée
@@ -93,7 +91,7 @@ export function RoomListMedium({selectedCategory}) {
                 const totalRating = room.reviews.reduce((acc, review) => acc + review.rating, 0);
                 return totalRating / room.reviews.length;
             }
-            return 0;  // Si la chambre n'a pas d'évaluations, on retourne 0
+            return 0;
         });
         setAverageRating(newAverageRatings);
     }, [rooms]);
@@ -162,7 +160,11 @@ export function RoomListMedium({selectedCategory}) {
                                             marginTop: 2,
                                         }}
                                     >
-                                        <Button variant="contained" size="medium">
+                                        <Button
+                                            variant="contained"
+                                            size="medium"
+                                            component={Link}
+                                            to={`/rooms/${room.id}`}>
                                             En savoir plus
                                         </Button>
                                         <Rating
