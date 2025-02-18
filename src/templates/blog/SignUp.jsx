@@ -1,19 +1,11 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import FormLabel from '@mui/material/FormLabel';
-import FormControl from '@mui/material/FormControl';
-import Link from '@mui/material/Link';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
+import UserAPI from "../../api/user";
+import AppAppBar from "./components/AppAppBar";
 import AppTheme from '../../shared-theme/AppTheme';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from './components/CustomIcons';
-import AppAppBar from "../blog/components/AppAppBar";
 import {FormCard, SignUpContainer} from "../../style/CardStyle";
-import UserAPI from "../../api/user";
+import {Box, Button, Divider, FormLabel, FormControl, Link, Typography, CssBaseline, TextField} from '@mui/material';
 
 
 export default function SignUp(props) {
@@ -27,6 +19,10 @@ export default function SignUp(props) {
     const [lastNameErrorMessage, setLastNameErrorMessage] = React.useState('');
     const navigate = useNavigate();
 
+    /**
+     * Contrôle des inputs
+     * @returns {boolean}
+     */
     const validateInputs = () => {
         const email = document.getElementById('email');
         const password = document.getElementById('password');
@@ -106,6 +102,7 @@ export default function SignUp(props) {
         // Appel à l'enregistrement utilisateur
         registerUser(formData);
     };
+
 
     return (
         <AppTheme {...props}>

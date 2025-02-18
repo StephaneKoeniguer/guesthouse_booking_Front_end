@@ -12,7 +12,6 @@ import Grid from "@mui/material/Grid2";
 import { Typography, Box, Container, CardMedia} from "@mui/material";
 
 
-
 export default function RoomDetails(props) {
     const { id } = useParams();
     const [room, setRoom] = useState(null);

@@ -1,26 +1,17 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import CssBaseline from '@mui/material/CssBaseline';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Divider from '@mui/material/Divider';
-import FormLabel from '@mui/material/FormLabel';
-import FormControl from '@mui/material/FormControl';
-import Link from '@mui/material/Link';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import ForgotPassword from './components/ForgotPassword';
-import AppTheme from '../../shared-theme/AppTheme';
-import { GoogleIcon, FacebookIcon, SitemarkIcon } from './components/CustomIcons';
-import AppAppBar from "../blog/components/AppAppBar";
-import {CardSignIn, SignInContainer} from "../../style/CardStyle";
-import UserAPI from "../../api/user";
 import {useNavigate} from "react-router-dom";
-import { useAuth } from '../../context/AuthProvider';
+import {useAuth} from '../../context/AuthProvider';
+import UserAPI from "../../api/user";
+import AppTheme from '../../shared-theme/AppTheme';
+import ForgotPassword from './components/ForgotPassword';
+import {GoogleIcon, FacebookIcon, SitemarkIcon} from './components/CustomIcons';
+import AppAppBar from "./components/AppAppBar";
+import {CardSignIn, SignInContainer} from "../../style/CardStyle";
+import {Box, Button, Divider, FormLabel, FormControl, Link, Typography, Checkbox, CssBaseline, FormControlLabel, TextField} from '@mui/material';
 
 
 export default function SignIn(props) {
+
     const [emailError, setEmailError] = React.useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
     const [passwordError, setPasswordError] = React.useState(false);
@@ -183,7 +174,7 @@ export default function SignIn(props) {
                         <Button
                             fullWidth
                             variant="outlined"
-                            onClick={() => alert('Sign in with Google')}
+                            /*onClick={}*/
                             startIcon={<GoogleIcon />}
                         >
                             Se connecter avec Google
@@ -191,7 +182,7 @@ export default function SignIn(props) {
                         <Button
                             fullWidth
                             variant="outlined"
-                            onClick={() => alert('Sign in with Facebook')}
+                            /*onClick={}*/
                             startIcon={<FacebookIcon />}
                         >
                             Se connecter avec Facebook
