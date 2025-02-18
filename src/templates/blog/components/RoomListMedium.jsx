@@ -167,7 +167,8 @@ export function RoomListMedium({selectedCategory}) {
                                             variant="contained"
                                             size="medium"
                                             component={Link}
-                                            to={`/rooms/${room.id}`}>
+                                            to={`/rooms/${room.id}`}
+                                            state={{ rating: averageRating[index] || 0 }}>
                                             En savoir plus
                                         </Button>
                                         <Rating

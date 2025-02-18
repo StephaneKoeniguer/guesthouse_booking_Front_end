@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useLocation } from 'react-router-dom';
 import RoomsAPI from "../../../api/rooms";
 import AppTheme from '../../../shared-theme/AppTheme';
 import AppAppBar from './AppAppBar';
@@ -9,7 +10,7 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from "@mui/material/Grid2";
-import { Typography, Box, Container, CardMedia} from "@mui/material";
+import {Typography, Box, Container, CardMedia, Divider, Rating, Chip} from "@mui/material";
 
 
 export default function RoomDetails(props) {
@@ -17,6 +18,8 @@ export default function RoomDetails(props) {
     const [room, setRoom] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const location = useLocation();
+    const roomRating = location.state?.rating || 0;
 
     useEffect(() => {
         const fetchRoomDetails = async () => {
@@ -34,6 +37,7 @@ export default function RoomDetails(props) {
     }, []);
 
 
+    console.log(room);
 
     if (loading) {
         return (
@@ -75,11 +79,17 @@ export default function RoomDetails(props) {
                 sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
             >
                 <Box sx={{my: 4}}>
-                    <Typography variant="h4" component="h1" gutterBottom>
-                        Nom : {room.name}
+                    <Typography gutterBottom variant="caption" component="div">
+                        <Chip label={room.category.name}/>
+                    </Typography>
+                    <Typography variant="h4" component="h1" gutterBottom sx={{mt: 4}}>
+                        {room.name}
                     </Typography>
                     <Typography variant="body1" color="textSecondary" sx={{ mb: 2 }}>
-                        Description : {room.description}
+                        {room.description}
+                    </Typography>
+                    <Typography variant="body1" sx={{ mb: 2 }}>
+                        Adresse : {room.adress} - {room.city}
                     </Typography>
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
                         <Typography variant="body1">
@@ -94,9 +104,9 @@ export default function RoomDetails(props) {
                         </Typography>
                     </Box>
                 </Box>
-
-                <Box sx={{ my: 4 }}>
-                    <h2>Galerie d'images</h2>
+                <Divider />
+                <Box sx={{ my: 2 }}>
+                    <h2>Galerie</h2>
                     <Grid container spacing={2}>
                         {room.roomImages.map((roomImage, index) => (
                             <Grid item xs={12} sm={6} md={4} key={index}>
@@ -119,6 +129,42 @@ export default function RoomDetails(props) {
                             </Grid>
                         ))}
                     </Grid>
+                </Box>
+                <Divider />
+                <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', my: 2}}>
+                    <h2>Commentaires</h2>
+                    <Rating
+                        name="read-only"
+                        value={roomRating}
+                        readOnly
+                    />
+                </Box>
+                <Box>
+                    {room.reviews.map((review, index) => (
+                        <Box
+                            key={index}
+                            sx={{
+                                border: '1px solid #ddd',
+                                borderRadius: 2,
+                                padding: 2,
+                                mb: 2,
+                                backgroundColor: 'background.paper',
+                                boxShadow: 2
+                            }}
+                        >
+                            <Typography variant="body2" sx={{ fontWeight: 'bold', marginBottom: 1 }}>
+                                {review.comment}
+                            </Typography>
+                            <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+                                <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
+                                    Stephane Koeniguer
+                                </Typography>
+                                <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
+                                    {new Date(review.createdAt).toLocaleDateString()}
+                                </Typography>
+                            </Box>
+                        </Box>
+                    ))}
                 </Box>
 
             </Container>
