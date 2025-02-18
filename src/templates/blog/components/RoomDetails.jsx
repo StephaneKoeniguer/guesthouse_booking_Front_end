@@ -69,6 +69,7 @@ export default function RoomDetails(props) {
         );
     }
 
+
     return (
         <AppTheme {...props}>
             <CssBaseline enableColorScheme />
@@ -89,7 +90,7 @@ export default function RoomDetails(props) {
                         {room.description}
                     </Typography>
                     <Typography variant="body1" sx={{ mb: 2 }}>
-                        Adresse : {room.adress} - {room.city}
+                        Adresse : {room.adress} - {room.zipdCode} {room.city}
                     </Typography>
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
                         <Typography variant="body1">
@@ -103,6 +104,7 @@ export default function RoomDetails(props) {
                             {room.pricePerNight} €
                         </Typography>
                     </Box>
+                    <h2>Équipements</h2>
                 </Box>
                 <Divider />
                 <Box sx={{ my: 2 }}>
@@ -157,7 +159,7 @@ export default function RoomDetails(props) {
                             </Typography>
                             <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
                                 <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
-                                    Stephane Koeniguer
+                                    {review.user.firstName} {review.user.lastName}
                                 </Typography>
                                 <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
                                     {new Date(review.createdAt).toLocaleDateString()}
