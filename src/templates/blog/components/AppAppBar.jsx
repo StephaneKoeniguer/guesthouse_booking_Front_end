@@ -1,19 +1,14 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
-import MenuItem from '@mui/material/MenuItem';
+import {Link} from 'react-router-dom'
+import { useAuth } from '../../../context/AuthProvider';
 import Drawer from '@mui/material/Drawer';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ColorModeIconDropdown from '../../../shared-theme/ColorModeIconDropdown';
 import Sitemark from './SitemarkIcon';
-import { Link} from 'react-router-dom'
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import {StyledToolbar} from "../../../style/Navigation";
-import { useAuth } from '../../../context/AuthProvider';
+import {Box, AppBar, Button, IconButton, Container, Divider, MenuItem } from '@mui/material';
+
 
 export default function AppAppBar() {
     const [open, setOpen] = React.useState(false);

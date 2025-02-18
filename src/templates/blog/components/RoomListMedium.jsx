@@ -6,9 +6,8 @@ import Loading from "./Loading";
 import ErrorDisplay from "./ErrorDisplay";
 import Pagination from "@mui/material/Pagination";
 import {StyledTypography, SyledCard, SyledCardContent} from "../../../style/CardStyle";
-import {CardMedia, Typography, Chip, Divider, Button, Rating,Box } from "@mui/material";
+import {CardMedia, Typography, Chip, Divider, Button, Rating, Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-
 
 
 export function RoomListMedium({selectedCategory}) {
@@ -22,6 +21,10 @@ export function RoomListMedium({selectedCategory}) {
     const [totalPages, setTotalPages] = useState(1);
 
 
+    /**
+     * Récupération de la list de rooms
+     * @returns {Promise<void>}
+     */
     const getRooms = async () => {
         try {
             // Utiliser la fonction fetchRooms pour récupérer les données

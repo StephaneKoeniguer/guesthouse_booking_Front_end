@@ -1,14 +1,6 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
-import InputLabel from '@mui/material/InputLabel';
-import Link from '@mui/material/Link';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import SitemarkIcon from './SitemarkIcon';
+import {Box, Button, Container, Divider, InputLabel, Link, Stack, Typography, TextField } from '@mui/material';
 
 function Copyright() {
     return (

@@ -1,9 +1,8 @@
-import Box from "@mui/material/Box";
-import Chip from "@mui/material/Chip";
-import {Search} from "./SearchBar";
 import * as React from "react";
-import {useEffect, useState} from "react";
 import CategoryAPI from "../../../api/category";
+import {Search} from "./SearchBar";
+import {useEffect, useState} from "react";
+import {Box,Chip } from "@mui/material";
 
 
 export function Filter({handleClick, activeCategory}) {
@@ -15,7 +14,7 @@ export function Filter({handleClick, activeCategory}) {
         // Utiliser la fonction fetchCategories pour récupérer les données
         const getCategories = async () => {
             try {
-                const categoryData = await CategoryAPI.fetchCategories();  // Appel de la méthode statique
+                const categoryData = await CategoryAPI.fetchCategories();
                 setCategories(categoryData);
             } catch (err) {
                 setError(err.message);
@@ -86,6 +85,5 @@ export function Filter({handleClick, activeCategory}) {
             </Box>
         ) : null
     );
-
 
 }
