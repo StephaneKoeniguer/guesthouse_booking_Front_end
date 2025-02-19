@@ -81,7 +81,7 @@ export default function RoomDetails(props) {
             >
                 <Box sx={{my: 4}}>
                     <Typography gutterBottom variant="caption" component="div">
-                        <Chip label={room.category.name}/>
+                        <Chip label={room.category.name} color= 'warning' sx={{ padding: '5px' }}/>
                     </Typography>
                     <Typography variant="h4" component="h1" gutterBottom sx={{mt: 4}}>
                         {room.name}
@@ -104,7 +104,18 @@ export default function RoomDetails(props) {
                             {room.pricePerNight} €
                         </Typography>
                     </Box>
-                    <h2>Équipements</h2>
+                    <Box sx={{my: 4}}>
+                        <Divider />
+                        <h2>Équipements</h2>
+                        {room.amenities.map((amenitie) => (
+                            <Chip
+                                key={amenitie.id}
+                                label={amenitie.name}
+                                sx={{ marginX: '5px' }}
+                                color="primary"
+                            />
+                        ))}
+                    </Box>
                 </Box>
                 <Divider />
                 <Box sx={{ my: 2 }}>
