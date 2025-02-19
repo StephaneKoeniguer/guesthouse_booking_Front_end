@@ -43,6 +43,11 @@ export default class RoomsAPI {
         }
     }
 
+    /**
+     * Récupère le détail d'une chambre
+     * @param roomId
+     * @returns {Promise<any>}
+     */
     static async fetchDetailsRooms(roomId) {
         try {
             const response = await axios.get(`${API_URL}/${roomId}`, {

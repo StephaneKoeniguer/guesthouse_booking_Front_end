@@ -10,12 +10,18 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from "@mui/material/Grid2";
-import {Typography, Box, Container, CardMedia, Divider, Rating, Chip} from "@mui/material";
+import {Typography, Box, Container, CardMedia, Divider, Rating, Chip, Button} from "@mui/material";
+import ReviewsAPI from "../../../api/Reviews";
+import Pagination from "@mui/material/Pagination";
 
 
 export default function RoomDetails(props) {
     const { id } = useParams();
     const [room, setRoom] = useState(null);
+    const [reviews, setReviews] = useState(null);
+    const [page, setPage] = useState(1);
+    const [limit] = useState(2);
+    const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const location = useLocation();
@@ -25,7 +31,7 @@ export default function RoomDetails(props) {
         const fetchRoomDetails = async () => {
             try {
                 const data = await RoomsAPI.fetchDetailsRooms(id);
-                setRoom(data);
+                setRoom(data.reviews);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -37,7 +43,30 @@ export default function RoomDetails(props) {
     }, []);
 
 
+    useEffect(() => {
+        const fetchReview = async () => {
+            try {
+                const data = await ReviewsAPI.fetchReviewsPerRoom(room.id, page, limit);
+                setReviews(data);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (room?.id) { // Vérifie que room et room.id existent
+            fetchReview();
+        }
+    }, [room?.id, page, limit]);
+
+    const handlePageChange = (event, value) => {
+        setPage(value);
+    };
+
     console.log(room);
+
+
 
     if (loading) {
         return (
@@ -45,7 +74,7 @@ export default function RoomDetails(props) {
                 <CssBaseline />
                 <AppAppBar />
                 <Container
-                    maxWidth="lg"
+                    maxWidth="l"
                     component="main"
                     sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "60vh" }}
                 >
@@ -61,7 +90,11 @@ export default function RoomDetails(props) {
             <AppTheme>
                 <CssBaseline />
                 <AppAppBar />
-                <Container maxWidth="lg" component="main" sx={{ my: 16 }}>
+                <Container
+                    maxWidth="l"
+                    component="main"
+                    sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "60vh" }}
+                >
                     <ErrorDisplay />
                 </Container>
                 <Footer />
@@ -80,6 +113,16 @@ export default function RoomDetails(props) {
                 sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}
             >
                 <Box sx={{my: 4}}>
+                    <Button
+                        variant="contained"
+                        size="small"
+                        color="primary"
+                        onClick={() => window.location.href = '/'}
+                        sx={{ marginBottom: '20px' }}
+                    >
+                        Retour à l'accueil
+                    </Button>
+                    <Divider sx={{ marginBottom: '20px' }} />
                     <Typography gutterBottom variant="caption" component="div">
                         <Chip label={room.category.name} color= 'warning' sx={{ padding: '5px' }}/>
                     </Typography>
@@ -104,7 +147,7 @@ export default function RoomDetails(props) {
                             {room.pricePerNight} €
                         </Typography>
                     </Box>
-                    <Box sx={{my: 4}}>
+                    <Box sx={{marginTop: 4}}>
                         <Divider />
                         <h2>Équipements</h2>
                         {room.amenities.map((amenitie) => (
@@ -118,33 +161,36 @@ export default function RoomDetails(props) {
                     </Box>
                 </Box>
                 <Divider />
-                <Box sx={{ my: 2 }}>
+                <Box sx={{ marginBottom: 2 }}>
                     <h2>Galerie</h2>
-                    <Grid container spacing={2}>
-                        {room.roomImages.map((roomImage, index) => (
-                            <Grid item xs={12} sm={6} md={4} key={index}>
-                                <CardMedia
-                                    component="img"
-                                    alt={`${room.name} - Image ${index + 1}`}
-                                    image={roomImage.imageUrl}
-                                    sx={{
-                                        width: "100%",
-                                        height: 200,
-                                        objectFit: "cover",
-                                        borderRadius: 2,
-                                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-                                        transition: "transform 0.3s ease",
-                                        "&:hover": {
-                                            transform: "scale(1.05)",
-                                        },
-                                    }}
-                                />
-                            </Grid>
-                        ))}
+                    <Grid container spacing={1}>
+                        {room.roomImages.map((roomImage, index) => {
+                            // Choisir une taille d'image aléatoire pour chaque image
+                            const imageHeight = index % 3 === 0 ? 300 : 200; // Images plus grandes tous les 3 éléments
+                            return (
+                                <Grid item xs={4} sm={3} md={2} key={index}>
+                                    <CardMedia
+                                        component="img"
+                                        alt={`${room.name} - Image ${index + 1}`}
+                                        image={roomImage.imageUrl}
+                                        sx={{
+                                            width: "100%",
+                                            height: `${imageHeight}px`,
+                                            objectFit: "cover",
+                                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                                            transition: "transform 0.3s ease",
+                                            "&:hover": {
+                                                transform: "scale(1.05)"
+                                            },
+                                        }}
+                                    />
+                                </Grid>
+                            );
+                        })}
                     </Grid>
                 </Box>
                 <Divider />
-                <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', my: 2}}>
+                <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 2}}>
                     <h2>Commentaires</h2>
                     <Rating
                         name="read-only"
@@ -153,31 +199,51 @@ export default function RoomDetails(props) {
                     />
                 </Box>
                 <Box>
-                    {room.reviews.map((review, index) => (
-                        <Box
-                            key={index}
-                            sx={{
-                                border: '1px solid #ddd',
-                                borderRadius: 2,
-                                padding: 2,
-                                mb: 2,
-                                backgroundColor: 'background.paper',
-                                boxShadow: 2
-                            }}
-                        >
-                            <Typography variant="body2" sx={{ fontWeight: 'bold', marginBottom: 1 }}>
-                                {review.comment}
-                            </Typography>
-                            <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
-                                <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
-                                    {review.user.firstName} {review.user.lastName}
-                                </Typography>
-                                <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
-                                    {new Date(review.createdAt).toLocaleDateString()}
-                                </Typography>
-                            </Box>
-                        </Box>
-                    ))}
+                    {reviews && (
+                        <>
+                            {reviews.map((review, index) => (
+                                <Box
+                                    key={index}
+                                    sx={{
+                                        border: '1px solid #ddd',
+                                        borderRadius: 2,
+                                        padding: 2,
+                                        mb: 2,
+                                        backgroundColor: 'background.paper',
+                                        boxShadow: 2
+                                    }}
+                                >
+                                    <Typography variant="body2" sx={{ fontWeight: 'bold', marginBottom: 1 }}>
+                                        {review.comment}
+                                    </Typography>
+                                    <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+                                        <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
+                                            {review.user.firstName} {review.user.lastName}
+                                        </Typography>
+                                        <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
+                                            {new Date(review.createdAt).toLocaleDateString()}
+                                        </Typography>
+                                    </Box>
+                                </Box>
+                            ))}
+                        </>
+                    )}
+                </Box>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        width: '100%',
+                        pt: 4,
+                    }}
+                >
+                    <Pagination
+                        hidePrevButton={page === 1}
+                        hideNextButton={page === totalPages}
+                        count={totalPages}
+                        page={page}
+                        onChange={handlePageChange}
+                    />
                 </Box>
 
             </Container>
