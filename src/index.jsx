@@ -7,6 +7,7 @@ import Blog from "./templates/blog/Blog";
 import SignIn from "./templates/blog/SignIn";
 import SignUp from "./templates/blog/SignUp";
 import RoomDetails from "./templates/blog/components/RoomDetails";
+import Dashboard from "./templates/Dashboard/Dashboard";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -18,7 +19,8 @@ root.render(
                 <Route path="/" element={<Blog />} />
                 <Route path="/connection" element={<SignIn />} />
                 <Route path="/inscription" element={<SignUp />} />
-                  <Route path="/rooms/:id" element={<RoomDetails />} />
+                <Route path="/rooms/:id" element={<RoomDetails />} />
+                <Route path="/dashboard" element={<Dashboard />} />
               </Routes>
           </Router>
       </AuthProvider>

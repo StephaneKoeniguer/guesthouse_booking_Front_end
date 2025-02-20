@@ -1,14 +1,13 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom'
 import { useAuth } from '../../../context/AuthProvider';
+import SitemarkButton from "./SitemarkButton";
 import Drawer from '@mui/material/Drawer';
 import ColorModeIconDropdown from '../../../shared-theme/ColorModeIconDropdown';
-import Sitemark from './SitemarkIcon';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import {StyledToolbar} from "../../../style/Navigation";
 import {Box, AppBar, Button, IconButton, Container, Divider, MenuItem } from '@mui/material';
-import SitemarkButton from "./SitemarkButton";
 
 
 export default function AppAppBar() {
@@ -65,7 +64,7 @@ export default function AppAppBar() {
                                     Commentaires & évaluations
                                 </Button>
                                 <Button variant="text" color="info" size="small" component={Link}
-                                        to="/">
+                                        to="/dashboard">
                                     Mon profil
                                 </Button>
                                 <Button
