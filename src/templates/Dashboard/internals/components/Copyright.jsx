@@ -1,6 +1,5 @@
 import * as React from 'react';
-import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
+import {Link, Typography } from '@mui/material/';
 
 export default function Copyright(props) {
     return (
@@ -17,7 +16,7 @@ export default function Copyright(props) {
         >
             {'Copyright © '}
             <Link color="inherit" href="https://mui.com/">
-                Sitemark
+                GuestHome
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}

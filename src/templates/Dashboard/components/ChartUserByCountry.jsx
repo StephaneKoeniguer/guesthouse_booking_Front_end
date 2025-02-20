@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useDrawingArea } from '@mui/x-charts/hooks';
 import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
+import {Typography, Card, CardContent, Box, Stack} from '@mui/material/';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 
 import {

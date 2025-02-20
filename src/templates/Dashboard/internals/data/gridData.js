@@ -1,22 +1,8 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Chip from '@mui/material/Chip';
+import {Avatar, Chip} from '@mui/material/';
 import { SparkLineChart } from '@mui/x-charts/SparkLineChart';
+import { getDaysInMonth } from '../../../../utils/dateUtils';
 
-function getDaysInMonth(month, year) {
-    const date = new Date(year, month, 0);
-    const monthName = date.toLocaleDateString('en-US', {
-        month: 'short',
-    });
-    const daysInMonth = date.getDate();
-    const days = [];
-    let i = 1;
-    while (days.length < daysInMonth) {
-        days.push(`${monthName} ${i}`);
-        i += 1;
-    }
-    return days;
-}
 
 function renderSparklineCell(params) {
     const data = getDaysInMonth(4, 2024);
