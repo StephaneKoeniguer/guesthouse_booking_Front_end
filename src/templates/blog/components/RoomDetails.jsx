@@ -20,7 +20,7 @@ export default function RoomDetails(props) {
     const [room, setRoom] = useState(null);
     const [reviews, setReviews] = useState(null);
     const [page, setPage] = useState(1);
-    const [limit] = useState(2);
+    const [limit] = useState(3);
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -31,7 +31,7 @@ export default function RoomDetails(props) {
         const fetchRoomDetails = async () => {
             try {
                 const data = await RoomsAPI.fetchDetailsRooms(id);
-                setRoom(data.reviews);
+                setRoom(data);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -47,7 +47,8 @@ export default function RoomDetails(props) {
         const fetchReview = async () => {
             try {
                 const data = await ReviewsAPI.fetchReviewsPerRoom(room.id, page, limit);
-                setReviews(data);
+                setReviews(data.reviews);
+                setTotalPages(data.totalPages);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -63,8 +64,6 @@ export default function RoomDetails(props) {
     const handlePageChange = (event, value) => {
         setPage(value);
     };
-
-    console.log(room);
 
 
 
@@ -229,22 +228,27 @@ export default function RoomDetails(props) {
                         </>
                     )}
                 </Box>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        width: '100%',
-                        pt: 4,
-                    }}
-                >
-                    <Pagination
-                        hidePrevButton={page === 1}
-                        hideNextButton={page === totalPages}
-                        count={totalPages}
-                        page={page}
-                        onChange={handlePageChange}
-                    />
-                </Box>
+
+                { totalPages > 1 ? (
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            width: '100%',
+                            pt: 4,
+                        }}
+                    >
+                        <Pagination
+                            hidePrevButton={page === 1}
+                            hideNextButton={page === totalPages}
+                            count={totalPages}
+                            page={page}
+                            onChange={handlePageChange}
+                        />
+                    </Box>
+
+                    ) : null
+                }
 
             </Container>
             <Footer />

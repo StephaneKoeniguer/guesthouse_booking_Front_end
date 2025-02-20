@@ -8,6 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import {StyledToolbar} from "../../../style/Navigation";
 import {Box, AppBar, Button, IconButton, Container, Divider, MenuItem } from '@mui/material';
+import SitemarkButton from "./SitemarkButton";
 
 
 export default function AppAppBar() {
@@ -32,7 +33,7 @@ export default function AppAppBar() {
             <Container maxWidth="xl">
                 <StyledToolbar variant="dense" disableGutters>
                     <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
-                        <Sitemark />
+                        <SitemarkButton />
                         <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                             <Button variant="text" color="info" size="small" component={Link}
                                     to="/">

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import SvgIcon from '@mui/material/SvgIcon';
 
 export default function SitemarkIcon() {
+
     return (
         <svg
             width={86}
