@@ -5,7 +5,6 @@ export const ModalCommentaires = ({ open, handleClose }) => {
 
     const [value, setValue] = useState(1);
 
-
     return (
         <Modal
             open={open}

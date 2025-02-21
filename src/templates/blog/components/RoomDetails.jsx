@@ -197,6 +197,7 @@ export default function RoomDetails(props) {
                 </Box>
                 <Divider />
                 <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 2}}>
+
                     <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                         <h2>Commentaires</h2>
                         <Fab sx={{marginLeft: '20px'}} color="primary" aria-label="edit" onClick={handleOpen}>
@@ -204,6 +205,7 @@ export default function RoomDetails(props) {
                         </Fab>
                         <ModalCommentaires open={open} handleClose={handleClose} />
                     </Box>
+
                     <Rating
                         name="read-only"
                         value={roomRating}
