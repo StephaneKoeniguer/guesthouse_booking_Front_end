@@ -11,7 +11,10 @@ import ErrorDisplay from "./ErrorDisplay";
 import Loading from "./Loading";
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from "@mui/material/Grid2";
-import {Typography, Box, Container, CardMedia, Divider, Rating, Chip, Button, Pagination} from "@mui/material";
+import {Typography, Box, Container, CardMedia, Divider, Rating, Chip, Button, Pagination, Fab} from "@mui/material";
+import {ModalCommentaires} from './ModalCommentaires';
+
+import EditIcon from '@mui/icons-material/Edit';
 
 
 
@@ -26,6 +29,10 @@ export default function RoomDetails(props) {
     const [error, setError] = useState(null);
     const location = useLocation();
     const roomRating = location.state?.rating || 0;
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     useEffect(() => {
         const fetchRoomDetails = async () => {
@@ -190,7 +197,13 @@ export default function RoomDetails(props) {
                 </Box>
                 <Divider />
                 <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 2}}>
-                    <h2>Commentaires</h2>
+                    <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                        <h2>Commentaires</h2>
+                        <Fab sx={{marginLeft: '20px'}} color="primary" aria-label="edit" onClick={handleOpen}>
+                            <EditIcon />
+                        </Fab>
+                        <ModalCommentaires open={open} handleClose={handleClose} />
+                    </Box>
                     <Rating
                         name="read-only"
                         value={roomRating}

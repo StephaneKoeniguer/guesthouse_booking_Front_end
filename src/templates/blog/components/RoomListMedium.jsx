@@ -52,9 +52,10 @@ export function RoomListMedium({selectedCategory}) {
     useEffect(() => {
         const roomsToDisplay = async () => {
             setLoading(true); // Démarre le chargement au début
-            setPage(1);
+
 
             if (selectedCategory) {
+                setPage(1);
                 // Si une catégorie est sélectionnée
                 try {
                     const data = await RoomsAPI.fetchRoomsPerCategory(selectedCategory, page, limit);
