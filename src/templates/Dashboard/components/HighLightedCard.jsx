@@ -1,8 +1,5 @@
 import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import {Card, CardContent, Button, Typography} from '@mui/material/';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded';
 import useMediaQuery from '@mui/material/useMediaQuery';

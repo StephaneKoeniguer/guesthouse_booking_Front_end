@@ -1,12 +1,10 @@
 import * as React from 'react';
 import MuiAvatar from '@mui/material/Avatar';
 import MuiListItemAvatar from '@mui/material/ListItemAvatar';
-import MenuItem from '@mui/material/MenuItem';
+import {MenuItem, ListSubheader, Divider} from '@mui/material/';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListSubheader from '@mui/material/ListSubheader';
 import Select, { selectClasses } from '@mui/material/Select';
-import Divider from '@mui/material/Divider';
 import { styled } from '@mui/material/styles';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import DevicesRoundedIcon from '@mui/icons-material/DevicesRounded';

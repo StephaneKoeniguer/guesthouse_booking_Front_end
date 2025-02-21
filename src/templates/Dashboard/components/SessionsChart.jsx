@@ -7,6 +7,7 @@ import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { LineChart } from '@mui/x-charts/LineChart';
+import { getDaysInMonth } from '../../../utils/dateUtils';
 
 function AreaGradient({ color, id }) {
     return (
@@ -24,20 +25,6 @@ AreaGradient.propTypes = {
     id: PropTypes.string.isRequired,
 };
 
-function getDaysInMonth(month, year) {
-    const date = new Date(year, month, 0);
-    const monthName = date.toLocaleDateString('en-US', {
-        month: 'short',
-    });
-    const daysInMonth = date.getDate();
-    const days = [];
-    let i = 1;
-    while (days.length < daysInMonth) {
-        days.push(`${monthName} ${i}`);
-        i += 1;
-    }
-    return days;
-}
 
 export default function SessionsChart() {
     const theme = useTheme();

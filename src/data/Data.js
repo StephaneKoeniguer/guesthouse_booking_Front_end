@@ -1,3 +1,6 @@
+import {BrazilFlag, GlobeFlag, IndiaFlag, UsaFlag} from "../templates/Dashboard/internals/components/CustomIcons";
+import * as React from "react";
+
 export const articleInfo = [
     {
         tag: 'Engineering',
@@ -78,4 +81,82 @@ export const articleInfo = [
             "Take a look at our company's journey and the milestones we've achieved along the way. From humble beginnings to industry leader, discover our story of growth and success.",
         authors: [{ name: 'Cindy Baker', avatar: '/static/images/avatar/3.jpg' }],
     },
+];
+
+
+export const data = [
+    { label: 'India', value: 50000 },
+    { label: 'USA', value: 35000 },
+    { label: 'Brazil', value: 10000 },
+    { label: 'Other', value: 5000 },
+];
+
+
+export const countries = [
+    {
+        name: 'India',
+        value: 50,
+        flag: <IndiaFlag />,
+        color: 'hsl(220, 25%, 65%)',
+    },
+    {
+        name: 'USA',
+        value: 35,
+        flag: <UsaFlag />,
+        color: 'hsl(220, 25%, 45%)',
+    },
+    {
+        name: 'Brazil',
+        value: 10,
+        flag: <BrazilFlag />,
+        color: 'hsl(220, 25%, 30%)',
+    },
+    {
+        name: 'Other',
+        value: 5,
+        flag: <GlobeFlag />,
+        color: 'hsl(220, 25%, 20%)',
+    },
+];
+
+export const ITEMS = [
+    {
+        id: '1',
+        label: 'Website',
+        children: [
+            { id: '1.1', label: 'Home', color: 'green' },
+            { id: '1.2', label: 'Pricing', color: 'green' },
+            { id: '1.3', label: 'About us', color: 'green' },
+            {
+                id: '1.4',
+                label: 'Blog',
+                children: [
+                    { id: '1.1.1', label: 'Announcements', color: 'blue' },
+                    { id: '1.1.2', label: 'April lookahead', color: 'blue' },
+                    { id: '1.1.3', label: "What's new", color: 'blue' },
+                    { id: '1.1.4', label: 'Meet the team', color: 'blue' },
+                ],
+            },
+        ],
+    },
+    {
+        id: '2',
+        label: 'Store',
+        children: [
+            { id: '2.1', label: 'All products', color: 'green' },
+            {
+                id: '2.2',
+                label: 'Categories',
+                children: [
+                    { id: '2.2.1', label: 'Gadgets', color: 'blue' },
+                    { id: '2.2.2', label: 'Phones', color: 'blue' },
+                    { id: '2.2.3', label: 'Wearables', color: 'blue' },
+                ],
+            },
+            { id: '2.3', label: 'Bestsellers', color: 'green' },
+            { id: '2.4', label: 'Sales', color: 'green' },
+        ],
+    },
+    { id: '4', label: 'Contact', color: 'blue' },
+    { id: '5', label: 'Help', color: 'blue' },
 ];

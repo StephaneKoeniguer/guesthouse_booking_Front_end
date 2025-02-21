@@ -5,47 +5,9 @@ import { useDrawingArea } from '@mui/x-charts/hooks';
 import { styled } from '@mui/material/styles';
 import {Typography, Card, CardContent, Box, Stack} from '@mui/material/';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+import {data} from '../../../data/Data';
+import {countries} from '../../../data/Data';
 
-import {
-    IndiaFlag,
-    UsaFlag,
-    BrazilFlag,
-    GlobeFlag,
-} from '../internals/components/CustomIcons';
-
-const data = [
-    { label: 'India', value: 50000 },
-    { label: 'USA', value: 35000 },
-    { label: 'Brazil', value: 10000 },
-    { label: 'Other', value: 5000 },
-];
-
-const countries = [
-    {
-        name: 'India',
-        value: 50,
-        flag: <IndiaFlag />,
-        color: 'hsl(220, 25%, 65%)',
-    },
-    {
-        name: 'USA',
-        value: 35,
-        flag: <UsaFlag />,
-        color: 'hsl(220, 25%, 45%)',
-    },
-    {
-        name: 'Brazil',
-        value: 10,
-        flag: <BrazilFlag />,
-        color: 'hsl(220, 25%, 30%)',
-    },
-    {
-        name: 'Other',
-        value: 5,
-        flag: <GlobeFlag />,
-        color: 'hsl(220, 25%, 20%)',
-    },
-];
 
 const StyledText = styled('text', {
     shouldForwardProp: (prop) => prop !== 'variant',
