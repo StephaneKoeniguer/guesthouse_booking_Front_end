@@ -3,7 +3,7 @@ import {Box, Modal, TextField, Button, Rating} from '@mui/material';
 
 export const ModalCommentaires = ({ open, handleClose }) => {
 
-    const [value, setValue] = useState(1);
+    const [value, setValue] = useState(0);
 
     return (
         <Modal

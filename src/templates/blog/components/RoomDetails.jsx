@@ -232,7 +232,7 @@ export default function RoomDetails(props) {
                                     </Typography>
                                     <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
                                         <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
-                                            {review.user.firstName} {review.user.lastName}
+                                            {review.user ? `${review.user.firstName} ${review.user.lastName}` : `${review.guest.firstName} ${review.guest.lastName}` }
                                         </Typography>
                                         <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
                                             {new Date(review.createdAt).toLocaleDateString()}

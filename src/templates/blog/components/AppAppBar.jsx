@@ -56,16 +56,8 @@ export default function AppAppBar() {
                         {isAuthenticated ? (
                             <>
                                 <Button variant="text" color="info" size="small" component={Link}
-                                        to="/">
-                                    Mes annonces
-                                </Button>
-                                <Button variant="text" color="info" size="small" component={Link}
-                                        to="/">
-                                    Commentaires & évaluations
-                                </Button>
-                                <Button variant="text" color="info" size="small" component={Link}
                                         to="/dashboard">
-                                    Mon profil
+                                    Tableau de bord
                                 </Button>
                                 <Button
                                     color="primary"
@@ -121,34 +113,22 @@ export default function AppAppBar() {
 
                                 {isAuthenticated ? (
                                     <>
-                                    <MenuItem>
-                                        <Button variant="text" color="info" fullWidth component={Link}
-                                                to="/">
-                                            Mes annonces
-                                        </Button>
-                                    </MenuItem>
-                                    <MenuItem>
-                                        <Button variant="text" color="info" fullWidth component={Link}
-                                                to="/">
-                                            Commentaires & évaluations
-                                        </Button>
-                                    </MenuItem>
-                                    <MenuItem>
-                                        <Button variant="text" color="info" fullWidth component={Link}
-                                                to="/">
-                                            Mon profil
-                                        </Button>
-                                    </MenuItem>
-                                    <MenuItem>
-                                        <Button
-                                            color="primary"
-                                            variant="contained"
-                                            fullWidth
-                                            onClick={logout}
-                                        >
-                                            Déconnexion
-                                        </Button>
-                                    </MenuItem>
+                                        <MenuItem>
+                                            <Button variant="text" color="info" fullWidth component={Link}
+                                                    to="/">
+                                                Tableau de bord
+                                            </Button>
+                                        </MenuItem>
+                                        <MenuItem>
+                                            <Button
+                                                color="primary"
+                                                variant="contained"
+                                                fullWidth
+                                                onClick={logout}
+                                            >
+                                                Déconnexion
+                                            </Button>
+                                        </MenuItem>
                                     </>
                                 ) : (
                                     <>
